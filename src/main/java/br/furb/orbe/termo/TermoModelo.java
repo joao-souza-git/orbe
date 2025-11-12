@@ -51,6 +51,8 @@ public class TermoModelo {
     @Lob
     private String perfilCoorientador;
 
+    private String tipo;
+
     @NotBlank
     private String ano;
 

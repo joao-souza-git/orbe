@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const telefoneAluno2Container = document.getElementById('telefoneAluno2Container');
   const elCurso = document.getElementById('textCurso');
   const elTitulo = document.getElementById('textTitulo');
+  const elTipo = document.getElementById('textTipo');
   const elResumo = document.getElementById('textResumo');
   const elOrientador = document.getElementById('textOrientador');
   const elCoorientador = document.getElementById('textCoorientador');
@@ -141,8 +142,17 @@ document.addEventListener('DOMContentLoaded', async () => {
       elTelefoneAluno2.textContent = '—';
     }
 
+    let tipo;
+    if (t.tipo === 'inovacao') {
+      tipo = "Inovação";
+    }
+    else {
+      tipo = "Aplicado"
+    }
+
     elCurso.textContent = t.cursoAluno || '—';
     elTitulo.textContent = t.titulo || '—';
+    elTipo.textContent = tipo || '—';
     elResumo.textContent = t.resumo || '—';
     elOrientador.textContent = await buscarNomeProfessor(t.emailOrientador);
     elCoorientador.textContent = await buscarNomeProfessor(t.emailCoorientador);

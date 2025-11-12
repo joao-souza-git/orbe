@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     aluno2: document.getElementById('aluno2'),
     curso: document.getElementById('curso'),
     titulo: document.getElementById('titulo'),
+    tipo: document.getElementById('tipo'),
     orientador: document.getElementById('orientador'),
     coorientador: document.getElementById('coorientador'),
     dataEHora: document.getElementById('dataEHora'),
@@ -116,10 +117,19 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   async function preencherCampos() {
+    let tipo;
+    if (banca.tipo === 'inovacao') {
+      tipo = "Inovação";
+    }
+    else {
+      tipo = "Aplicado"
+    }
+
     campos.aluno1.textContent = await getNomeAluno(banca.emailAluno1) || "—";
     campos.aluno2.textContent = await getNomeAluno(banca.emailAluno2) || "—";
     campos.curso.textContent = banca.curso || "—";
     campos.titulo.textContent = banca.titulo || "—";
+    campos.tipo.textContent = tipo || "—";
     campos.orientador.textContent = await getNomeProfessor(banca.emailOrientador) || "—";
     campos.coorientador.textContent = await getNomeProfessor(banca.emailCoorientador) || "—";
 

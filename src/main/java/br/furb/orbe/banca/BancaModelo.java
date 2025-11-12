@@ -38,6 +38,8 @@ public class BancaModelo {
     @Email
     private String emailCoorientador;
 
+    private String tipo;
+
     @NotBlank
     private String curso;
 

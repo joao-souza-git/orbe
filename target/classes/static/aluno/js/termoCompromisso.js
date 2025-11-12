@@ -1,10 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
   const btnSair = document.getElementById('btnSair');
   btnSair?.addEventListener('click', () => {
-      localStorage.clear();
-      window.location.href = '../login.html';
+    localStorage.clear();
+    window.location.href = '../login.html';
   });
-  
+
   verificarAcesso();
 
   async function verificarAcesso() {
@@ -31,12 +31,12 @@ document.addEventListener('DOMContentLoaded', () => {
       window.location.href = '../login.html';
       return;
     }
-
   }
 
   const btnFinalizar = document.querySelector('button[type="submit"]');
   const visualizacaoTermo = document.getElementById('visualizacaoTermo');
   const mensagem = document.getElementById('mensagem');
+  const tipoCheckContainer = document.getElementById('tipoCheckContainer');
 
   const campos = {
     titulo: document.getElementById('titulo'),
@@ -170,6 +170,12 @@ document.addEventListener('DOMContentLoaded', () => {
       const resAluno = await fetch(`/alunos/${encodeURIComponent(emailAluno)}`);
       const aluno = await resAluno.json();
 
+      if (aluno.curso === 'SIS') {
+        tipoCheckContainer.style.display = 'block';
+      } else {
+        tipoCheckContainer.style.display = 'none';
+      }
+
       if (aluno.coorientadorProvisorio) {
         perfilContainer.style.display = 'block';
       } else {
@@ -184,12 +190,13 @@ document.addEventListener('DOMContentLoaded', () => {
           campos.ano.value = termo.ano;
           campos.semestre.value = termo.semestre;
           campos.resumo.value = termo.resumo;
-
           if (aluno.coorientadorProvisorio) {
-            perfilContainer.style.display = 'block';
             campos.perfil.value = termo.perfilCoorientador || '';
-          } else {
-            perfilContainer.style.display = 'none';
+          }
+
+          if (termo.tipo && aluno.curso === 'SIS') {
+            const inputTipo = document.querySelector(`input[name="tipo"][value="${termo.tipo}"]`);
+            if (inputTipo) inputTipo.checked = true;
           }
 
           await atualizarVisualizacaoTermo(termo);
@@ -227,6 +234,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
 
+      const tipoSelecionado = aluno.curso === 'SIS'
+        ? document.querySelector('input[name="tipo"]:checked')?.value || null
+        : null;
+
       const termo = {
         titulo: campos.titulo.value.trim(),
         emailAluno: aluno.email,
@@ -238,6 +249,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ano: campos.ano.value,
         semestre: campos.semestre.value,
         resumo: campos.resumo.value.trim(),
+        tipo: tipoSelecionado, // <── incluído aqui
         emailOrientador: aluno.orientadorProvisorio || null,
         emailCoorientador: aluno.coorientadorProvisorio || null,
         perfilCoorientador: aluno.coorientadorProvisorio ? campos.perfil.value.trim() : null,
@@ -265,7 +277,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const resPost = await fetch(url, {
         method: metodo,
-        headers: {'Content-Type': 'application/json'},
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(termo),
       });
 
@@ -273,13 +285,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const resText = await resPost.text();
       if (resText) termoSalvo = JSON.parse(resText);
 
-      mensagem.innerHTML = parceiroData ? 
-        `<div class="alert alert-success">Termo de compromisso enviado com sucesso.</div>` :
-        `<div class="alert alert-success">Termo de compromisso enviado com sucesso.</div>`;
+      mensagem.innerHTML = `<div class="alert alert-success">Termo de compromisso enviado com sucesso.</div>`;
       if (termoSalvo) atualizarVisualizacaoTermo(termoSalvo);
 
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   }
 

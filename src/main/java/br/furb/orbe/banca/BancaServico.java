@@ -50,6 +50,7 @@ public class BancaServico {
             if (bancaModelo.getEmailAluno1() != null) existente.setEmailAluno2(bancaModelo.getEmailAluno2());
             if (bancaModelo.getEmailOrientador() != null) existente.setEmailOrientador(bancaModelo.getEmailOrientador());
             if (bancaModelo.getEmailCoorientador() != null) existente.setEmailCoorientador(bancaModelo.getEmailCoorientador());
+            if (bancaModelo.getTipo() != null) existente.setTipo(bancaModelo.getTipo());
             if (bancaModelo.getCurso() != null) existente.setCurso(bancaModelo.getCurso());
             if (bancaModelo.getTitulo() != null) existente.setTitulo(bancaModelo.getTitulo());
             if (bancaModelo.getResumo() != null) existente.setResumo(bancaModelo.getResumo());
@@ -108,6 +109,7 @@ public class BancaServico {
         if (termoModelo.getEmailParceiro() != null) { bancaModelo.setEmailAluno2(termoModelo.getEmailParceiro()); }
         bancaModelo.setEmailOrientador(termoModelo.getEmailOrientador());
         bancaModelo.setEmailCoorientador(termoModelo.getEmailCoorientador());
+        bancaModelo.setTipo(termoModelo.getTipo());
         bancaModelo.setCurso(termoModelo.getCursoAluno());
         bancaModelo.setTitulo(termoModelo.getTitulo());
         bancaModelo.setResumo(termoModelo.getResumo());

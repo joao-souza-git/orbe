@@ -154,9 +154,18 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   async function abrirModal(termo) {
     termoAtual = termo;
+    let tipo;
+    if (termo.tipo === 'inovacao') {
+      tipo = "inovação";
+    }
+    else {
+      tipo = "aplicado"
+    }
+
     document.getElementById('modalNomeAluno1').textContent = termo.nomeAluno1;
     document.getElementById('modalNomeAluno2').textContent = termo.nomeAluno2;
     document.getElementById('modalTitulo').textContent = termo.titulo;
+    document.getElementById('modalTipo').textContent = tipo;
     document.getElementById('modalResumo').textContent = termo.resumo;
 
     const professores = await carregarTodosProfessores();

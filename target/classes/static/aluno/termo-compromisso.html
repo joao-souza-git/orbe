@@ -26,8 +26,20 @@
     <div class="invalid-feedback">Por favor, insira o título do trabalho.</div>
   </div>
 
+  <div class="mb-3" id="tipoCheckContainer" style="display:none;">
+    <span class="form-label d-block mb-1">Tipo de trabalho</span>
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" name="tipo" id="tipoAplicado" value="aplicado" checked>
+      <label class="form-check-label" for="tipoAluno">Aplicado</label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" name="tipo" id="tipoInovação" value="inovacao">
+      <label class="form-check-label" for="tipoProfessor">Inovação</label>
+    </div>
+  </div>
+
   <div class="mb-3">
-    <label for="semestre" class="form-label">Quando (ano/semestre) você cursará TCC II?</label>
+    <label for="semestre" class="form-label">Quando (ano/semestre) você pretende cursar TCC II?</label>
     <div class="d-flex gap-2">
       <select class="form-select" id="ano" required>
         <option value="">Ano</option>
