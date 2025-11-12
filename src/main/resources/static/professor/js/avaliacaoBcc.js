@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   function definirPapelUsuario() {
     const emailAtual = localStorage.getItem('email');
     if (emailAtual === banca.emailAvaliador) papelUsuario = 'avaliador';
-    else if (emailAtual === banca.emailProfTcc1) papelUsuario = 'prof_tcc1';
+    else if (emailAtual === banca.emailProfTcc1) papelUsuario = 'prof_tcc1_bcc';
     else if (emailAtual === banca.emailOrientador) papelUsuario = 'orientador'; 
     else {
       alert('Você não tem permissão para acessar esta página :(');
@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       [notaAvaliadorPreProjeto, notaAvaliadorProjeto, parecerAvaliador]
         .forEach(el => el.classList.remove('disabled-field'));
 
-    } else if (papelUsuario === 'prof_tcc1') {
+    } else if (papelUsuario === 'prof_tcc1_bcc') {
       notaProfTcc1PreProjeto.disabled = false;
       notaProfTcc1Projeto.disabled = false;
       parecerProf.disabled = false;
@@ -184,7 +184,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (papelUsuario === 'avaliador') {
       payload.notaAvaliadorPreProjeto = parseFloat(campos.notaAvaliadorPreProjeto.value) || null;
       payload.notaAvaliadorProjeto = parseFloat(campos.notaAvaliadorProjeto.value) || null;
-    } else if (papelUsuario === 'prof_tcc1') {
+    } else if (papelUsuario === 'prof_tcc1_bcc') {
       payload.notaProfTcc1PreProjeto = parseFloat(campos.notaProfTcc1PreProjeto.value) || null;
       payload.notaProfTcc1Projeto = parseFloat(campos.notaProfTcc1Projeto.value) || null;
     } else if (papelUsuario === 'orientador') {
@@ -218,7 +218,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     if (papelUsuario === 'avaliador') {
       if (parecerAvaliador) formData.append("arquivoParecerAvaliador", parecerAvaliador);
-    } else if (papelUsuario === 'prof_tcc1') {
+    } else if (papelUsuario === 'prof_tcc1_bcc') {
       if (preProjeto) formData.append("arquivoPreProjeto", preProjeto);
       if (projeto) formData.append("arquivoProjeto", projeto);
       if (parecerProf) formData.append("arquivoParecerProfTcc1", parecerProf);

@@ -75,24 +75,44 @@ public class ProfessorControle {
         return this.professorServico.alterarProfessorParcial(email, professorModelo);
     }
 
-    @PatchMapping("/prof-tcc1/adicionar/{email}")
-    public ResponseEntity<ProfessorModelo> tornarProfTcc1(@PathVariable String email) {
-        return this.professorServico.adicionarPapel(email, PapelProfessor.PROF_TCC1);
+    @PatchMapping("/prof-tcc1-bcc/adicionar/{email}")
+    public ResponseEntity<ProfessorModelo> tornarProfTcc1Bcc(@PathVariable String email) {
+        return this.professorServico.adicionarPapel(email, PapelProfessor.PROF_TCC1_BCC);
     }
 
-    @PatchMapping("/prof-tcc1/remover/{email}")
-    public ResponseEntity<ProfessorModelo> removerProfTcc1(@PathVariable String email) {
-        return this.professorServico.removerPapel(email, PapelProfessor.PROF_TCC1);
+    @PatchMapping("/prof-tcc1-bcc/remover/{email}")
+    public ResponseEntity<ProfessorModelo> removerProfTcc1Bcc(@PathVariable String email) {
+        return this.professorServico.removerPapel(email, PapelProfessor.PROF_TCC1_BCC);
     }
 
-    @PatchMapping("/prof-tcc2/adicionar/{email}")
-    public ResponseEntity<ProfessorModelo> tornarProfTcc2(@PathVariable String email) {
-        return this.professorServico.adicionarPapel(email, PapelProfessor.PROF_TCC2);
+    @PatchMapping("/prof-tcc2-bcc/adicionar/{email}")
+    public ResponseEntity<ProfessorModelo> tornarProfTcc2Bcc(@PathVariable String email) {
+        return this.professorServico.adicionarPapel(email, PapelProfessor.PROF_TCC2_BCC);
     }
 
-    @PatchMapping("/prof-tcc2/remover/{email}")
-    public ResponseEntity<ProfessorModelo> removerProfTcc2(@PathVariable String email) {
-        return this.professorServico.removerPapel(email, PapelProfessor.PROF_TCC2);
+    @PatchMapping("/prof-tcc2-bcc/remover/{email}")
+    public ResponseEntity<ProfessorModelo> removerProfTcc2Bcc(@PathVariable String email) {
+        return this.professorServico.removerPapel(email, PapelProfessor.PROF_TCC2_BCC);
+    }
+
+    @PatchMapping("/prof-tcc1-sis/adicionar/{email}")
+    public ResponseEntity<ProfessorModelo> tornarProfTcc1Sis(@PathVariable String email) {
+        return this.professorServico.adicionarPapel(email, PapelProfessor.PROF_TCC1_SIS);
+    }
+
+    @PatchMapping("/prof-tcc1-sis/remover/{email}")
+    public ResponseEntity<ProfessorModelo> removerProfTcc1Sis(@PathVariable String email) {
+        return this.professorServico.removerPapel(email, PapelProfessor.PROF_TCC1_SIS);
+    }
+
+    @PatchMapping("/prof-tcc2-sis/adicionar/{email}")
+    public ResponseEntity<ProfessorModelo> tornarProfTcc2Sis(@PathVariable String email) {
+        return this.professorServico.adicionarPapel(email, PapelProfessor.PROF_TCC2_SIS);
+    }
+
+    @PatchMapping("/prof-tcc2-sis/remover/{email}")
+    public ResponseEntity<ProfessorModelo> removerProfTcc2Sis(@PathVariable String email) {
+        return this.professorServico.removerPapel(email, PapelProfessor.PROF_TCC2_SIS);
     }
 
     @PatchMapping("/coord-bcc/adicionar/{email}")

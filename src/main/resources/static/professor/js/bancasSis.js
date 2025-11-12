@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   tipo !== 'professor' ||
   !emailUsuario ||
   (
-    localStorage.getItem('prof_tcc2') !== 'true'
+    localStorage.getItem('prof_tcc2_sis') !== 'true'
   )
 ) {
     alert('Você não tem permissão para acessar esta página :(');

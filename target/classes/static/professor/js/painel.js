@@ -84,8 +84,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     let label = null;
-    if (role === 'prof_tcc1') label = 'Professor de TCC I';
-    if (role === 'prof_tcc2') label = 'Professor de TCC II';
+    if (role === 'prof_tcc1_bcc') label = 'Professor de TCC I';
+    if (role === 'prof_tcc2_bcc') label = 'Professor de TCC II';
+    if (role === 'prof_tcc1_sis') label = 'Professor de TCC I';
+    if (role === 'prof_tcc2_sis') label = 'Professor de TCC II';
     if (role === 'coord_bcc') label = 'Coordenador de BCC';
     if (role === 'coord_sis') label = 'Coordenador de SIS';
 
@@ -340,7 +342,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   document.getElementById('confirmRemove').addEventListener('click', async () => {
     modalConfirm.hide();
     if (!alunoSelecionado || !colSelecionado) return;
-    const emailParceiro = alunoSelecionado.parceiro;
 
     try {
       const urlOri = `/professores/remover-orientando/${encodeURIComponent(alunoSelecionado)}`;
