@@ -23,15 +23,29 @@
     <h5 class="mb-4">Controle de papéis</h5>
 
     <div class="mb-3">
-      <label for="coordTcc" class="form-label">Professor de TCC I</label>
-      <select class="form-select" id="profTcc1" required>
+      <label for="coordTcc" class="form-label">Professor de TCC I de BCC</label>
+      <select class="form-select" id="profTcc1Bcc" required>
         <option value="">Selecione o professor</option>
       </select>
     </div>
 
     <div class="mb-3">
-      <label for="coordTcc" class="form-label">Professor de TCC II</label>
-      <select class="form-select" id="profTcc2" required>
+      <label for="coordTcc" class="form-label">Professor de TCC II de BCC</label>
+      <select class="form-select" id="profTcc2Bcc" required>
+        <option value="">Selecione o professor</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="coordTcc" class="form-label">Professor de TCC I de SIS</label>
+      <select class="form-select" id="profTcc1Sis" required>
+        <option value="">Selecione o professor</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="coordTcc" class="form-label">Professor de TCC II de SIS</label>
+      <select class="form-select" id="profTcc2Sis" required>
         <option value="">Selecione o professor</option>
       </select>
     </div>
@@ -57,8 +71,10 @@
 
   <div id="visualizacao" class="card p-4 shadow-sm mb-5">
     <h5 class="mb-3">Papéis atuais</h5>
-    <p><strong>Professor de TCC I:</strong> <span id="viewTcc1"></span></p>
-    <p><strong>Professor de TCC I:</strong> <span id="viewTcc2"></span></p>
+    <p><strong>Professor de TCC I de BCC:</strong> <span id="viewTcc1Bcc"></span></p>
+    <p><strong>Professor de TCC II de BCC:</strong> <span id="viewTcc2Bcc"></span></p>
+    <p><strong>Professor de TCC I de SIS:</strong> <span id="viewTcc1Sis"></span></p>
+    <p><strong>Professor de TCC II de SIS:</strong> <span id="viewTcc2Sis"></span></p>
     <p><strong>Coordenador de BCC:</strong> <span id="viewBcc"></span></p>
     <p><strong>Coordenador de SIS:</strong> <span id="viewSis"></span></p>
   </div>

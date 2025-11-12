@@ -142,13 +142,16 @@ document.addEventListener('DOMContentLoaded', async () => {
       elTelefoneAluno2.textContent = '—';
     }
 
+    // ---- ALTERAÇÃO AQUI ----
     let tipo;
-    if (t.tipo === 'inovacao') {
-      tipo = "Inovação";
+    if (t.cursoAluno === 'BCC') {
+      tipo = '—';
+    } else if (t.tipo === 'inovacao') {
+      tipo = 'Inovação';
+    } else {
+      tipo = 'Aplicado';
     }
-    else {
-      tipo = "Aplicado"
-    }
+    // ------------------------
 
     elCurso.textContent = t.cursoAluno || '—';
     elTitulo.textContent = t.titulo || '—';

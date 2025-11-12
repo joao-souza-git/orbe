@@ -1,7 +1,7 @@
-document.addEventListener('DOMContentLoaded', async () => {
+﻿document.addEventListener('DOMContentLoaded', async () => {
   const tipo = localStorage.getItem('tipo');
-  const emailProfessor = localStorage.getItem('email')
-  if (tipo !== 'professor' || !emailProfessor || localStorage.getItem('prof_tcc1') !== 'true') {
+  const emailProfessor = localStorage.getItem('email');
+  if (tipo !== 'professor' || !emailProfessor || localStorage.getItem('prof_tcc1_sis') !== 'true') {
     alert('Você não tem permissão para acessar esta página :(');
     window.location.href = '../login.html';
   }
@@ -33,7 +33,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       termos = dados.filter(termo => {
         const statusCoorientador = (termo.statusCoorientador || '').toLowerCase();
-        return statusCoorientador === 'aprovado';
+        const curso = (termo.cursoAluno || '').toUpperCase();
+        return statusCoorientador === 'aprovado' && curso === 'SIS';
       });
 
       listaTermos.innerHTML = '';
@@ -41,7 +42,9 @@ document.addEventListener('DOMContentLoaded', async () => {
       if (!termos.length) {
         const placeholder = document.createElement('tr');
         placeholder.innerHTML = `
-          <td colspan="7" style="text-align:center; color:gray;">Você ainda não recebeu nenhum termo de compromisso.</td>
+          <td colspan="7" style="text-align:center; color:gray;">
+            Você ainda não recebeu nenhum termo de compromisso.
+          </td>
         `;
         listaTermos.appendChild(placeholder);
         return;
@@ -79,7 +82,9 @@ document.addEventListener('DOMContentLoaded', async () => {
       console.error(err);
       const placeholder = document.createElement('tr');
       placeholder.innerHTML = `
-        <td colspan="7" style="text-align:center; color:gray;">Você ainda não recebeu nenhum termo de compromisso.</td>
+        <td colspan="7" style="text-align:center; color:gray;">
+          Você ainda não recebeu nenhum termo de compromisso.
+        </td>
       `;
       listaTermos.appendChild(placeholder);
     }

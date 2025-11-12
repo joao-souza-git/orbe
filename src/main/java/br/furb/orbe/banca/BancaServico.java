@@ -117,10 +117,19 @@ public class BancaServico {
 
         List<ProfessorModelo> professores = professorRepositorio.findAll();
         for (ProfessorModelo p: professores) {
-            if (p.getPapeis().contains(PapelProfessor.PROF_TCC1)) {
-                bancaModelo.setEmailProfTcc1(p.getEmail());
-                break;
+            if (bancaModelo.getCurso().equals("BCC")) {
+                if (p.getPapeis().contains(PapelProfessor.PROF_TCC1_BCC)) {
+                    bancaModelo.setEmailProfTcc1(p.getEmail());
+                    break;
+                }
             }
+            else if (bancaModelo.getCurso().equals("SIS")) {
+                if (p.getPapeis().contains(PapelProfessor.PROF_TCC1_SIS)) {
+                    bancaModelo.setEmailProfTcc1(p.getEmail());
+                    break;
+                }
+            }
+            
         }
 
         bancaRepositorio.save(bancaModelo);

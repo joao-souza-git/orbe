@@ -1,7 +1,8 @@
-document.addEventListener('DOMContentLoaded', async () => {
+﻿document.addEventListener('DOMContentLoaded', async () => {
   const tipo = localStorage.getItem('tipo');
-  const emailProfessor = localStorage.getItem('email')
-  if (tipo !== 'professor' || !emailProfessor || localStorage.getItem('prof_tcc1') !== 'true') {
+  const emailProfessor = localStorage.getItem('email');
+
+  if (tipo !== 'professor' || !emailProfessor || localStorage.getItem('prof_tcc1_sis') !== 'true') {
     alert('Você não tem permissão para acessar esta página :(');
     window.location.href = '../login.html';
   }
@@ -16,14 +17,18 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   function formatDataHoraBR(date) {
     if (!date) return 'Data indisponível';
-    return date.toLocaleDateString('pt-BR', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric'
-    }) + ' ' + date.toLocaleTimeString('pt-BR', {
-      hour: '2-digit',
-      minute: '2-digit'
-    });
+    return (
+      date.toLocaleDateString('pt-BR', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
+      }) +
+      ' ' +
+      date.toLocaleTimeString('pt-BR', {
+        hour: '2-digit',
+        minute: '2-digit'
+      })
+    );
   }
 
   async function buscarNomeAluno(email) {
@@ -39,27 +44,48 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
 
+  async function buscarCursoAluno(email) {
+    if (!email) return null;
+    try {
+      const res = await fetch(`/alunos/${encodeURIComponent(email)}`);
+      if (!res.ok) throw new Error('Erro ao buscar aluno.');
+      const dados = await res.json();
+      return dados.curso || null;
+    } catch (err) {
+      console.error(err);
+      return null;
+    }
+  }
+
   async function carregarEntregas() {
     try {
       const resEntregas = await fetch('/documentos');
       if (!resEntregas.ok) throw new Error('Erro ao buscar entregas');
       const entregasTotais = await resEntregas.json();
 
-      const entregasFiltradas = entregasTotais.filter(entrega => entrega.profTcc1 === false);
+      let entregasFiltradas = entregasTotais.filter(entrega => entrega.profTcc1 === false);
+
+      const entregasBCC = [];
+      for (const entrega of entregasFiltradas) {
+        const curso = await buscarCursoAluno(entrega.emailAluno);
+        if (curso && curso.toUpperCase() === 'SIS') {
+          entregasBCC.push(entrega);
+        }
+      }
 
       tabelaBody.innerHTML = '';
 
-      if (!entregasFiltradas.length) {
+      if (!entregasBCC.length) {
         const placeholder = tabelaBody.insertRow();
         placeholder.innerHTML = `
-          <td colspan="4" style="text-align:center; color:gray;">Você ainda não recebeu nenhum projeto.</td>
+          <td colspan="4" style="text-align:center; color:gray;">Você ainda não recebeu nenhum projeto de alunos de BCC.</td>
         `;
         return;
       }
 
-      entregasFiltradas.sort((a, b) => new Date(b.criadoEm) - new Date(a.criadoEm));
+      entregasBCC.sort((a, b) => new Date(b.criadoEm) - new Date(a.criadoEm));
 
-      for (const entrega of entregasFiltradas) {
+      for (const entrega of entregasBCC) {
         const dataFormatada = formatDataHoraBR(new Date(entrega.criadoEm));
         const nomeAluno = await buscarNomeAluno(entrega.emailAluno);
 
