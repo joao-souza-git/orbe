@@ -108,7 +108,7 @@ public class BancaServico {
         bancaModelo.setEmailAluno1(termoModelo.getEmailAluno());
         if (termoModelo.getEmailParceiro() != null) { bancaModelo.setEmailAluno2(termoModelo.getEmailParceiro()); }
         bancaModelo.setEmailOrientador(termoModelo.getEmailOrientador());
-        bancaModelo.setEmailCoorientador(termoModelo.getEmailCoorientador());
+        if (termoModelo.getEmailCoorientador() != null) { bancaModelo.setEmailCoorientador(termoModelo.getEmailCoorientador()); }
         bancaModelo.setTipo(termoModelo.getTipo());
         bancaModelo.setCurso(termoModelo.getCursoAluno());
         bancaModelo.setTitulo(termoModelo.getTitulo());
@@ -116,20 +116,20 @@ public class BancaServico {
         bancaModelo.setStatus("pendente");
 
         List<ProfessorModelo> professores = professorRepositorio.findAll();
-        for (ProfessorModelo p: professores) {
-            if (bancaModelo.getCurso().equals("BCC")) {
-                if (p.getPapeis().contains(PapelProfessor.PROF_TCC1_BCC)) {
+        for (ProfessorModelo p : professores) {
+            if ("BCC".equals(termoModelo.getCursoAluno())) {
+                if (p.getPapeis().stream()
+                        .anyMatch(papel -> papel.name().equals("PROF_TCC1_BCC"))) {
+                    bancaModelo.setEmailProfTcc1(p.getEmail());
+                    break;
+                }
+            } else if ("SIS".equals(termoModelo.getCursoAluno())) {
+                if (p.getPapeis().stream()
+                        .anyMatch(papel -> papel.name().equals("PROF_TCC1_SIS"))) {
                     bancaModelo.setEmailProfTcc1(p.getEmail());
                     break;
                 }
             }
-            else if (bancaModelo.getCurso().equals("SIS")) {
-                if (p.getPapeis().contains(PapelProfessor.PROF_TCC1_SIS)) {
-                    bancaModelo.setEmailProfTcc1(p.getEmail());
-                    break;
-                }
-            }
-            
         }
 
         bancaRepositorio.save(bancaModelo);

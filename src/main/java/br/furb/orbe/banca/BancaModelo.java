@@ -47,6 +47,7 @@ public class BancaModelo {
     private String titulo;
 
     @NotBlank
+    @Lob
     private String resumo;
 
     @Email
